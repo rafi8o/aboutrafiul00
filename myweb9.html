@@ -15,15 +15,29 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     
     <style>
-        /* CSS Variables */
+        /* Light Theme CSS Variables (Default) */
         :root {
             --primary-color: #6a11cb;
             --secondary-color: #2575fc;
             --bg-light: #f8fafc;
+            --hero-bg: linear-gradient(135deg, #f0f4ff 0%, #e6f7ff 100%);
+            --nav-bg: rgba(255, 255, 255, 0.9);
             --text-dark: #1e293b;
             --text-muted: #64748b;
             --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.05);
             --transition: all 0.3s ease-in-out;
+        }
+
+        /* Dark Theme CSS Variables */
+        [data-theme="dark"] {
+            --bg-light: #0f172a;
+            --hero-bg: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -37,18 +51,20 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
+            transition: var(--transition);
         }
 
         /* Navigation Bar */
         nav {
-            background: rgba(255, 255, 255, 0.9);
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             left: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
         }
 
         .nav-container {
@@ -65,6 +81,12 @@
             font-weight: 700;
             color: var(--primary-color);
             text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .nav-links {
@@ -84,11 +106,32 @@
             color: var(--secondary-color);
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
         /* Hero Section */
         .hero {
             padding: 160px 20px 80px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #e6f7ff 100%);
+            background: var(--hero-bg);
             text-align: center;
+            transition: var(--transition);
         }
 
         .hero-container {
@@ -158,13 +201,12 @@
         }
 
         .btn-secondary {
-            background: #ffffff;
+            background: var(--card-bg);
             color: var(--text-dark);
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--text-muted);
         }
 
         .btn-secondary:hover {
-            background: #f1f5f9;
             transform: translateY(-2px);
         }
 
@@ -205,13 +247,13 @@
             padding: 30px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px var(--shadow);
             transition: var(--transition);
         }
 
         .skill-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px var(--shadow);
         }
 
         .skill-card i {
@@ -239,7 +281,7 @@
             display: flex;
             align-items: center;
             gap: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px var(--shadow);
             transition: var(--transition);
         }
 
@@ -258,9 +300,10 @@
             border-radius: 16px;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 20px var(--shadow);
             max-width: 600px;
             margin: 0 auto;
+            transition: var(--transition);
         }
 
         .social-icons {
@@ -295,7 +338,7 @@
         footer {
             text-align: center;
             padding: 30px;
-            background: #0f172a;
+            background: #020617;
             color: #94a3b8;
             font-size: 0.9rem;
         }
@@ -316,13 +359,19 @@
     <!-- Header / Navbar -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">Rafiul Isalm</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#hobbies">Hobbies</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <a href="#" class="logo">Rafiul.dev</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#hobbies">Hobbies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="theme-toggle" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -416,6 +465,36 @@
     <footer>
         <p>&copy; 2026 Rafiul Islam. All Rights Reserved.</p>
     </footer>
+
+    <!-- JavaScript for Dark/Light Theme Switcher -->
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Check stored theme in localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            if (currentTheme === 'dark') {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        }
+
+        // Toggle function
+        themeToggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+    </script>
 
 </body>
 </html>
